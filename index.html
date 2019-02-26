@@ -1,0 +1,134 @@
+<!-- /////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 
+///////////////////    Author: Jay Shah    ///////////////////
+/////////////////// Email: jgshah1@asu.edu ///////////////////
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// -->
+
+<html>
+    <head>
+    	<link rel="stylesheet" href="radarchart.css">
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="radarchart.js"></script>
+        <script type="text/javascript" src="workingdemo.js"></script>
+        <meta charset="utf-8"/>
+        <style>
+        div.tooltip {	
+		    position: absolute;			
+		    text-align: left;			
+		    width: auto;					
+		    height: auto;					
+		    padding: 5px;				
+		    font: 16px "century gothic";		
+		    background: #f0f0f0;	
+		    border: 0px;		
+		    border-radius: 8px;			
+		    pointer-events: none;
+		    z-index: 1000;}
+		.scatterdiv {
+			width: 1100;
+			height: 700;
+			position: absolute;}
+
+		#chart {
+			//position: absolute;
+			margin-top: 100px;
+			margin-left: 1000px;}
+
+		.radar-chart .area {
+	      fill-opacity: 0.7;}
+	    .radar-chart.focus .area {
+	      fill-opacity: 0.3;}
+	    .radar-chart.focus .area.focused {
+	      fill-opacity: 0.9;}
+
+	    .heading {
+	    	margin: 0 0 50 0;
+	    	text-align: center;
+	    	font: 16px ""Gill Sans"";
+	    	text-shadow: 2px 2px 5px rgb(255,140,0);
+	    	font-size: 3em;
+	    	color: black;
+	    	background-image: linear-gradient(rgb(218,165,32), rgb(255,255,255));
+	    	padding: 30px;}
+
+	    .info {
+			background-image: linear-gradient(rgb(255,255,255), rgb(218,165,32));	    	
+			padding: 20px;
+	    	margin: 150 0 0 0;
+	    	font: 16px ""Gill Sans"";
+	    	text-align: left;
+	    	font-size: 1em;}
+
+	    .info > hr {
+	    	width: 80%;
+	    	opacity: 0.4;}
+
+	    .buttondiv {
+  			background-color: rgb(139,69,19); 
+  			border-radius: 12px;
+  			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  			color: white;
+  			padding: 10px 24px;
+  			text-align: center;
+  			text-decoration: none;
+  			display: inline-block;
+  			font-size: 16px;
+  			-moz-animation: glowing 4000ms infinite;
+  			-o-animation: glowing 4000ms infinite;
+  			animation: glowing 4000ms infinite;}
+
+  		@-webkit-keyframes glowing {
+  0% { background-color: rgb(139,69,19); -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: rgb(139,69,19); -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: rgb(139,69,19); -webkit-box-shadow: 0 0 3px #B20000; }}
+
+@-moz-keyframes glowing {
+  0% { background-color: rgb(139,69,19); -moz-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: rgb(139,69,19); -moz-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: rgb(139,69,19); -moz-box-shadow: 0 0 3px #B20000; }}
+
+@-o-keyframes glowing {
+  0% { background-color: rgb(139,69,19); box-shadow: 0 0 3px #B20000; }
+  50% { background-color: rgb(139,69,19); box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: rgb(139,69,19); box-shadow: 0 0 3px #B20000; }}
+
+@keyframes glowing {
+  0% { background-color: rgb(139,69,19); box-shadow: 0 0 3px #B20000; }
+  50% { background-color: rgb(139,69,19); box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: rgb(139,69,19); box-shadow: 0 0 3px #B20000; }}
+
+        </style>
+    </head>
+    <body>	
+    	<div class="heading"> How Errors can affect a Player's Performance </div>
+    	<div class="scatterdiv"></div>
+        <div id="chart" width="100px" height="100px" style="height:500px;">
+        	<input type="button" class="buttondiv" value="Click here to clear the chart!" onclick="reset();">
+        </div>		
+        <div class="info">
+        	<b> Instructions to use the Visualization </b>
+        	<ol>
+        		<li> By <strong>hovering</strong> the cursor over the bubbles you can choose to analyze the particular player's performance on the radar chart, with the help of further information popped from the <strong>tool-tip</strong>.</li>
+        		<li><strong>Click on names</strong> on top of the page to highlight the bubbles specific to any desired player. </li>
+        		<li>The size of the bubble reflects the errors and faults made in a match. <strong>Bigger the bubble, more the errors and faults</strong> [<i>Radius of bubble is a function of Error and Double Faults</i>].</li>
+        	</ol>
+        	<br>
+        	<b>Observations</b><br>
+          In the professional game, double faults are quite rare. They sometimes reflect a momentary lapse in concentration, and can negatively impact a server’s confidence. Players are sometimes particularly careful after losing a point to a double fault, aiming closer to the middle of the box. Servers become more conservative immediately after a double fault. <br>
+          By hovering on the bubbles to top-right side of the scatter-plot which indicates higher number of errors and double faults, the radar chart indicates a consistent decrease in points won in 2nd serve and break points.
+          And hence with more errors and double faults (<i>top right corner of the scatter-plots; bigger bubbles</i>) for players, there is a slight increase in 1st serve points whereas a decrease in 2nd serve points won.
+        	<br><br><b>Glossary of terms used above</b>
+        	<ol>
+        		<li>First Serve (%): It is the only shot in tennis that doesn’t count against you if you miss it. How often you can make that harder serve into the service box. Getting the number right is a critical factor in holding serve more often.</li>
+        		<li>First Serve Points Won(%): The percentage of the points where the player successfully made the first service, that were won by the serving player. </li>
+        		<li>Second Serve Point Won(%): The second serve percentage is hit when a player misses the first serve, leaving them one chance to hit a serve before a double fault is given.</li>
+        		<li>Break Points Conversion(%): Converting a break-point  situation in in which one more point is needed to break the opponent's serve to a successful point.</li>
+        		<li>Receiving Points Won(%): The number of points you won when your opponent was serving. Usually a percentage value.</li>
+        		<li>Winner Points: Shot where the tennis ball returns inside the service box and is not touched by the receiver. Whereas, a shot that is both a serve and a winner is an ace.</li>
+        		<li>Errors: A shot that does not land (correctly) in the opponent's court, resulting in the loss of a point.</li>
+        		<li>Double Faults: Two serving faults in a row in one point, causing the player serving to lose the point.</li>
+        	</ol>
+        </div>     
+    </body>
+</html>
