@@ -1,5 +1,7 @@
 # Interactive-Visualizations-Tennis-Data
  How Errors can affect a Player's Performance
+
+ ![](interactive_tennis.gif)
  
 _Instructions to use the Visualization_
 
